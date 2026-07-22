@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酒呑み父さんの資産台帳</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍶</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Zen+Old+Mincho:wght@400;600&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFE6D8;
+    --paper-dark:#E2D5BF;
+    --paper-edge:#D8C7AA;
+    --ink:#2B2420;
+    --ink-soft:#5B5147;
+    --navy:#2A3B52;
+    --navy-deep:#1E2C3D;
+    --lantern:#C97F1E;
+    --hanko:#A6332B;
+    --sake-green:#5F7A5B;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Zen Old Mincho', serif;
+    line-height:1.85;
+  }
+  h1,h2,h3,.display{
+    font-family:'Shippori Antique B1', sans-serif;
+    letter-spacing:.02em;
+  }
+  .mono{
+    font-family:'DotGothic16', monospace;
+    letter-spacing:.03em;
+  }
+  a{color:inherit;}
+
+  /* Header */
+  header{
+    background:var(--navy);
+    color:var(--paper);
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    border-bottom:3px solid var(--lantern);
+  }
+  .logo{
+    font-family:'Shippori Antique B1', sans-serif;
+    font-size:1.15rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo img{
+    width:36px; height:36px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--lantern);
+  }
+  nav{display:flex; align-items:center;}
+  nav a{
+    text-decoration:none;
+    color:var(--paper);
+    margin-left:22px;
+    font-size:.92rem;
+    opacity:.85;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:opacity .2s, border-color .2s;
+  }
+  nav a:hover{opacity:1; border-color:var(--lantern);}
+  nav a.x-link{
+    display:flex; align-items:center; gap:6px;
+    opacity:.9;
+  }
+  nav a.x-link svg{width:15px; height:15px; fill:var(--paper);}
+
+  /* Hero — receipt / tsuke motif */
+  .hero-wrap{
+    display:flex;
+    justify-content:center;
+    padding:56px 20px 40px;
+  }
+  .receipt{
+    background:#FBF7EF;
+    max-width:520px;
+    width:100%;
+    padding:38px 34px 30px;
+    box-shadow:0 18px 40px -14px rgba(30,20,10,.35);
+    position:relative;
+    clip-path: polygon(
+      0% 1%, 3% 0%, 6% 1%, 9% 0%, 12% 1%, 15% 0%, 18% 1%, 21% 0%, 24% 1%, 27% 0%,
+      30% 1%, 33% 0%, 36% 1%, 39% 0%, 42% 1%, 45% 0%, 48% 1%, 51% 0%, 54% 1%, 57% 0%,
+      60% 1%, 63% 0%, 66% 1%, 69% 0%, 72% 1%, 75% 0%, 78% 1%, 81% 0%, 84% 1%, 87% 0%,
+      90% 1%, 93% 0%, 96% 1%, 100% 0%,
+      100% 100%,
+      96% 99%, 93% 100%, 90% 99%, 87% 100%, 84% 99%, 81% 100%, 78% 99%, 75% 100%, 72% 99%, 69% 100%,
+      66% 99%, 63% 100%, 60% 99%, 57% 100%, 54% 99%, 51% 100%, 48% 99%, 45% 100%, 42% 99%, 39% 100%,
+      36% 99%, 33% 100%, 30% 99%, 27% 100%, 24% 99%, 21% 100%, 18% 99%, 15% 100%, 12% 99%, 9% 100%,
+      6% 99%, 3% 100%, 0% 99%
+    );
+  }
+  .receipt .eyebrow{
+    font-family:'DotGothic16', monospace;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    text-align:center;
+    letter-spacing:.15em;
+  }
+  .receipt h1{
+    font-size:1.7rem;
+    text-align:center;
+    margin:10px 0 6px;
+    line-height:1.5;
+  }
+  .receipt .sub{
+    text-align:center;
+    font-size:.92rem;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+  .divider{
+    border:none;
+    border-top:2px dashed var(--paper-edge);
+    margin:20px 0;
+  }
+  .stat-line{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    font-family:'DotGothic16', monospace;
+    font-size:.94rem;
+    margin:10px 0;
+  }
+  .stat-label{white-space:nowrap;}
+  .stat-fill{
+    flex:1;
+    border-bottom:1px dotted var(--ink-soft);
+    transform:translateY(-4px);
+  }
+  .stat-value{white-space:nowrap; font-weight:700;}
+  .stat-value.up::after{content:" ▲"; color:var(--sake-green); font-size:.8em;}
+
+  .cta-wrap{
+    display:flex;
+    justify-content:center;
+    margin-top:26px;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--hanko);
+    color:#FBF7EF;
+    text-decoration:none;
+    padding:13px 22px;
+    font-family:'Shippori Antique B1', sans-serif;
+    font-size:.98rem;
+    border-radius:2px;
+    box-shadow:0 6px 14px -6px rgba(166,51,43,.6);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:hover{transform:translateY(-2px); box-shadow:0 10px 18px -6px rgba(166,51,43,.55);}
+
+  .stamp{
+    position:absolute;
+    top:22px; right:26px;
+    width:64px; height:64px;
+    border:3px solid var(--hanko);
+    border-radius:50%;
+    color:var(--hanko);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Shippori Antique B1', sans-serif;
+    font-size:.78rem;
+    text-align:center;
+    line-height:1.2;
+    transform:rotate(-14deg) scale(0);
+    opacity:0;
+    transition:transform .5s cubic-bezier(.2,1.4,.4,1), opacity .4s ease;
+  }
+  .stamp.show{transform:rotate(-14deg) scale(1); opacity:.88;}
+
+  /* Section title */
+  .section-title{
+    text-align:center;
+    font-size:1.3rem;
+    padding:6px 0 4px;
+    letter-spacing:.08em;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:.85rem;
+    margin-bottom:36px;
+  }
+
+  /* Hero banner image */
+  .hero-banner{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 20px 50px;
+  }
+  .hero-banner figure{margin:0;}
+  .hero-banner img{
+    width:100%;
+    display:block;
+    box-shadow:0 20px 44px -18px rgba(30,20,10,.5);
+    border:6px solid #FBF7EF;
+  }
+  .hero-banner figcaption{
+    font-family:'DotGothic16', monospace;
+    font-size:.76rem;
+    color:var(--ink-soft);
+    text-align:center;
+    margin-top:10px;
+    opacity:.75;
+  }
+
+  /* Menu / article list */
+  .menu{
+    background:var(--paper-dark);
+    padding:60px 20px 70px;
+    border-top:1px solid var(--paper-edge);
+    border-bottom:1px solid var(--paper-edge);
+  }
+  .menu-list{
+    max-width:720px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .menu-card{
+    background:#FBF7EF;
+    display:flex;
+    gap:20px;
+    padding:22px 24px;
+    text-decoration:none;
+    color:var(--ink);
+    box-shadow:0 8px 20px -14px rgba(30,20,10,.4);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .menu-card:hover{
+    transform:translateX(4px);
+    box-shadow:0 12px 24px -12px rgba(30,20,10,.45);
+  }
+  .menu-num{
+    font-family:'DotGothic16', monospace;
+    font-size:.78rem;
+    color:var(--lantern);
+    white-space:nowrap;
+    padding-top:3px;
+    min-width:52px;
+  }
+  .menu-body h3{
+    margin:0 0 6px;
+    font-size:1.12rem;
+  }
+  .menu-body p{
+    margin:0;
+    font-size:.88rem;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .menu-tags{
+    margin-top:10px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-family:'DotGothic16', monospace;
+    font-size:.72rem;
+    color:var(--navy);
+    border:1px solid var(--navy);
+    padding:2px 8px;
+    opacity:.7;
+  }
+
+  /* About */
+  .about{
+    max-width:640px;
+    margin:0 auto;
+    padding:70px 24px 90px;
+  }
+  .about-head{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:22px;
+  }
+  .about-head img{
+    width:64px; height:64px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--lantern);
+  }
+  .about h2{font-size:1.25rem; margin:0;}
+  .about p{font-size:.95rem; color:var(--ink-soft);}
+  .about .x-follow{
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:6px; text-decoration:none;
+    font-family:'DotGothic16', monospace; font-size:.82rem;
+    color:var(--navy); border-bottom:1px solid var(--lantern);
+    padding-bottom:2px;
+  }
+  .about .x-follow svg{width:13px; height:13px; fill:var(--navy);}
+
+  footer{
+    background:var(--navy-deep);
+    color:var(--paper);
+    text-align:center;
+    padding:36px 20px 44px;
+    font-size:.8rem;
+  }
+  footer p{margin:6px 0; opacity:.7;}
+  footer .foot-note{
+    max-width:520px;
+    margin:18px auto 0;
+    opacity:.55;
+    font-size:.74rem;
+    line-height:1.7;
+  }
+
+  @media (max-width:520px){
+    .receipt{padding:30px 20px 24px;}
+    .stamp{width:52px; height:52px; font-size:.68rem; right:14px; top:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="images/profile.png" alt="酒呑み父さん"> 酒呑み父さんの資産台帳</div>
+  <nav>
+    <a href="#top">ホーム</a>
+    <a href="#menu">記事一覧</a>
+    <a href="#about">このブログについて</a>
+    <a class="x-link" href="https://x.com/claude_ojisan" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23.3 22H16.7l-5.2-6.8L5.5 22H2.4l8-9.2L1.4 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.9L7.4 4h-2l12.3 16z"/></svg>
+      @claude_ojisan
+    </a>
+  </nav>
+</header>
+
+<div class="hero-wrap" id="top">
+  <div class="receipt">
+    <div class="stamp" id="stamp">着手<br>済</div>
+    <div class="eyebrow">SALARYMAN FATHER'S LEDGER — No.001</div>
+    <h1>今日も一杯、<br>資産も一歩。</h1>
+    <p class="sub">38歳・年収700万円・家族4人。<br>飲み代を死守しながら資産を増やせるか、正直に記録していきます。</p>
+
+    <hr class="divider">
+
+    <div class="stat-line">
+      <span class="stat-label">現在の純資産(概算)</span>
+      <span class="stat-fill"></span>
+      <span class="stat-value">¥2,140万</span>
+    </div>
+    <div class="stat-line">
+      <span class="stat-label">NISA生涯枠 進捗率</span>
+      <span class="stat-fill"></span>
+      <span class="stat-value">33%</span>
+    </div>
+    <div class="stat-line">
+      <span class="stat-label">毎月の積立額(NISA)</span>
+      <span class="stat-fill"></span>
+      <span class="stat-value up">¥10万</span>
+    </div>
+    <div class="stat-line">
+      <span class="stat-label">今月の飲み代(自己申告)</span>
+      <span class="stat-fill"></span>
+      <span class="stat-value">¥5万</span>
+    </div>
+
+    <hr class="divider">
+
+    <div class="cta-wrap">
+      <a class="cta" href="#" rel="nofollow sponsored">楽天証券でNISA口座を開設する →</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero-banner">
+  <figure>
+    <img src="images/hero-banner.png" alt="やけ酒とAIロボットの前で突っ伏す酒呑み父さん">
+    <figcaption>MEMO — 39歳、出世コース外れた管理職。逆転劇をここに記録する。</figcaption>
+  </figure>
+</div>
+
+<section class="menu" id="menu">
+  <h2 class="section-title">お品書き（更新履歴）</h2>
+  <p class="section-sub mono">MENU — 資産形成の記録、順番に並んでいます</p>
+
+  <div class="menu-list">
+    <a class="menu-card" href="article1.html">
+      <div class="menu-num">第一品</div>
+      <div class="menu-body">
+        <h3>【赤裸々公開】38歳・年収700万・酒呑みサラリーマン父さんの資産、正直いくらあるのか全部見せます</h3>
+        <p>ゆうちょ560万、NISA600万、個別株600万、投資用マンション2軒...うちの資産を包み隠さず公開。守りは固いが攻めが中途半端、という自己分析から始まります。</p>
+        <div class="menu-tags"><span class="tag">資産公開</span><span class="tag">第1回</span></div>
+      </div>
+    </a>
+
+    <a class="menu-card" href="article2.html">
+      <div class="menu-num">第二品</div>
+      <div class="menu-body">
+        <h3>NISA月10万円、S&P500とオルカンに5万ずつ積み立てることにした話</h3>
+        <p>生涯投資枠1,800万円のうち、まだ3分の1しか埋まっていない現実。逆算で決めた月10万円という金額と、米国集中と全世界分散を両方持つという配分の理由。</p>
+        <div class="menu-tags"><span class="tag">NISA戦略</span><span class="tag">第2回</span></div>
+      </div>
+    </a>
+
+    <div class="menu-card" style="opacity:.55; cursor:default;">
+      <div class="menu-num">準備中</div>
+      <div class="menu-body">
+        <h3>個別株600万円、なんとなく買った銘柄を棚卸ししてみた（近日公開）</h3>
+        <p>戦略性なく積み上がった個別株ポートフォリオ、本当に持ち続けるべきか検証します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-head">
+    <img src="images/profile.png" alt="酒呑み父さん プロフィール">
+    <div>
+      <h2>このブログについて</h2>
+      <a class="x-follow" href="https://x.com/claude_ojisan" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23.3 22H16.7l-5.2-6.8L5.5 22H2.4l8-9.2L1.4 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.9L7.4 4h-2l12.3 16z"/></svg>
+        @claude_ojisan をフォロー
+      </a>
+    </div>
+  </div>
+  <p>38歳・年収700万円の会社員が、妻・2歳の息子との3人暮らしで資産形成を記録するブログです。ゆうちょ・NISA・個別株・企業型DC・投資用マンションまで、我が家の資産を包み隠さず公開しながら、酒はやめずに資産を増やせるかを検証していきます。</p>
+  <p>数字は毎回の記事更新時点のものです。投資は元本割れのリスクがあり、内容は個人の記録・感想であって特定の商品・銘柄を推奨するものではありません。最終的な投資判断はご自身の責任でお願いします。</p>
+</section>
+
+<footer>
+  <p>酒呑み父さんの資産台帳</p>
+  <p><a href="https://x.com/claude_ojisan" target="_blank" rel="noopener" style="text-decoration:none; color:var(--paper); border-bottom:1px solid var(--lantern);">X: @claude_ojisan</a></p>
+  <p>&copy; 2026 — 個人の資産形成記録ブログ</p>
+  <p class="foot-note">本サイトの一部リンクはアフィリエイトプログラムを利用しています。リンク経由での申込みにより当ブログが紹介料を受け取る場合がありますが、掲載内容・評価には影響しません。投資に関する最終判断はご自身でお願いいたします。</p>
+</footer>
+
+<script>
+  const stamp = document.getElementById('stamp');
+  setTimeout(()=> stamp.classList.add('show'), 500);
+</script>
+
+</body>
+</html>

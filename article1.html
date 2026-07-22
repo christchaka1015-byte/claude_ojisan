@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資産、正直いくらあるのか全部見せます｜酒呑み父さんの資産台帳</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍶</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Zen+Old+Mincho:wght@400;600&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFE6D8; --paper-dark:#E2D5BF; --paper-edge:#D8C7AA;
+    --ink:#2B2420; --ink-soft:#5B5147;
+    --navy:#2A3B52; --navy-deep:#1E2C3D;
+    --lantern:#C97F1E; --hanko:#A6332B; --sake-green:#5F7A5B;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Zen Old Mincho', serif; line-height:1.9;}
+  h1,h2,h3{font-family:'Shippori Antique B1', sans-serif; letter-spacing:.02em;}
+  a{color:inherit;}
+  header{
+    background:var(--navy); color:var(--paper); padding:18px 24px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    position:sticky; top:0; z-index:20; border-bottom:3px solid var(--lantern);
+  }
+  .logo{font-family:'Shippori Antique B1', sans-serif; font-size:1.1rem; display:flex; align-items:center; gap:10px;}
+  .logo img{width:32px; height:32px; border-radius:50%; object-fit:cover; border:2px solid var(--lantern);}
+  nav{display:flex; align-items:center;}
+  nav a{text-decoration:none; color:var(--paper); margin-left:20px; font-size:.9rem; opacity:.85;}
+  nav a:hover{opacity:1;}
+  nav a.x-link{display:flex; align-items:center; gap:6px;}
+  nav a.x-link svg{width:14px; height:14px; fill:var(--paper);}
+
+  .article-wrap{max-width:660px; margin:0 auto; padding:56px 24px 30px;}
+  .eyebrow{font-family:'DotGothic16', monospace; font-size:.78rem; color:var(--ink-soft); letter-spacing:.1em;}
+  .article-wrap h1{font-size:1.65rem; line-height:1.5; margin:12px 0 24px;}
+  .lede{color:var(--ink-soft); font-size:.95rem; margin-bottom:36px;}
+
+  table{width:100%; border-collapse:collapse; margin:24px 0; font-size:.9rem; background:#FBF7EF;}
+  th,td{border:1px solid var(--paper-edge); padding:10px 12px; text-align:left;}
+  th{background:var(--paper-dark); font-family:'DotGothic16', monospace; font-weight:400; font-size:.82rem;}
+
+  .article-wrap h2{font-size:1.2rem; margin-top:44px; padding-bottom:8px; border-bottom:2px solid var(--lantern); display:inline-block;}
+  .article-wrap p{margin:16px 0; font-size:.97rem;}
+  .article-wrap ul, .article-wrap ol{padding-left:22px;}
+  .article-wrap li{margin:8px 0; font-size:.95rem;}
+
+  .divider{border:none; border-top:2px dashed var(--paper-edge); margin:44px 0 30px;}
+
+  .cta-box{
+    background:#FBF7EF; padding:26px 24px; box-shadow:0 8px 20px -14px rgba(30,20,10,.4);
+    text-align:center; margin:30px 0;
+  }
+  .cta-box p{font-size:.9rem; color:var(--ink-soft); margin-bottom:16px;}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px; background:var(--hanko); color:#FBF7EF;
+    text-decoration:none; padding:13px 22px; font-family:'Shippori Antique B1', sans-serif;
+    font-size:.96rem; border-radius:2px; box-shadow:0 6px 14px -6px rgba(166,51,43,.6);
+    transition:transform .15s ease;
+  }
+  .cta:hover{transform:translateY(-2px);}
+  .disclaimer{font-size:.76rem; color:var(--ink-soft); opacity:.75; margin-top:14px;}
+
+  .next-link{
+    display:block; max-width:660px; margin:0 auto 70px; padding:0 24px;
+    text-align:right; font-size:.9rem;
+  }
+  .next-link a{text-decoration:none; border-bottom:1px solid var(--lantern); padding-bottom:2px;}
+
+  footer{background:var(--navy-deep); color:var(--paper); text-align:center; padding:30px 20px; font-size:.78rem; opacity:.7;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="images/profile.png" alt="酒呑み父さん"> 酒呑み父さんの資産台帳</div>
+  <nav>
+    <a href="index.html">ホーム</a>
+    <a href="index.html#menu">記事一覧</a>
+    <a class="x-link" href="https://x.com/claude_ojisan" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23.3 22H16.7l-5.2-6.8L5.5 22H2.4l8-9.2L1.4 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.9L7.4 4h-2l12.3 16z"/></svg>
+    </a>
+  </nav>
+</header>
+
+<div class="article-wrap">
+  <div class="eyebrow">SALARYMAN FATHER'S LEDGER — 第1回</div>
+  <h1>【赤裸々公開】38歳・年収700万・酒呑みサラリーマン父さんの資産、正直いくらあるのか全部見せます</h1>
+  <p class="lede">こんにちは。38歳、2歳の息子を持つ酒呑みサラリーマン父さんです。平日はビール、休日は日本酒。給料が入ればまず飲み代を確保する典型的な"昭和気質"のダメ親父ですが、さすがにこのままじゃマズいと思い、資産形成をちゃんと勉強してブログに記録していくことにしました。</p>
+
+  <p>第1回目の今日は、恥を忍んで我が家の資産状況を全部公開します。同じような年収・家族構成の方には「あるある」と思ってもらえるはずです。</p>
+
+  <h2>まず我が家のプロフィール</h2>
+  <ul>
+    <li>私:38歳、会社員、年収700万円(額面)</li>
+    <li>妻:39歳、パート・時短勤務、年収250万円</li>
+    <li>息子:2歳</li>
+    <li>私の毎月のお小遣い:約5万円(飲み代含む)</li>
+  </ul>
+  <p>世帯年収は950万円。数字だけ見ると「余裕あるじゃん」と言われそうですが、住宅ローン、保育料、そして私の飲み代が地味に家計を圧迫しています。</p>
+
+  <h2>資産、全部出します</h2>
+  <p>見栄を張っても仕方ないので、良いところも悪いところも全部書きます。</p>
+  <table>
+    <tr><th>資産</th><th>金額</th><th>備考</th></tr>
+    <tr><td>ゆうちょ(親からの贈与)</td><td>560万円</td><td>使う予定なし</td></tr>
+    <tr><td>個人口座(普通預金)</td><td>60万円</td><td>生活防衛資金</td></tr>
+    <tr><td>家族口座(普通預金)</td><td>80万円</td><td>教育費など</td></tr>
+    <tr><td>NISA</td><td>600万円</td><td>評価額</td></tr>
+    <tr><td>個別株</td><td>600万円</td><td>評価額</td></tr>
+    <tr><td>企業型DC</td><td>200万円</td><td>評価額</td></tr>
+    <tr><td>投資用マンション2軒</td><td>購入額 約4,500万円</td><td>65歳までローン残あり</td></tr>
+  </table>
+  <p>こう並べてみると、「使わない560万円のゆうちょ」を除いた流動資産だけでも1,540万円。NISAと個別株で1,200万円動いているあたりは、我ながら意外と頑張ってきたなと思います。</p>
+  <p>一方で、投資用マンション2軒は正直悩みの種です。購入額4,500万円、65歳まで続くローン。家賃収入とローン返済のバランス次第で、これが「資産」になるか「重り」になるかが決まる状態です。この収支の詳細は、また別記事でちゃんと数字を出して検証しようと思います。</p>
+
+  <h2>現時点での自己評価</h2>
+  <p>率直に言うと、「守りは固いが、攻めが中途半端」な状態だと感じています。</p>
+  <ul>
+    <li>◎ ゆうちょの560万円に手を出さず温存できている</li>
+    <li>◎ NISAと企業型DCで非課税枠を一定活用できている</li>
+    <li>△ 個別株600万円は正直「なんとなく」買った銘柄も多く、戦略性に欠ける</li>
+    <li>△ 投資用マンションのキャッシュフローを正確に把握できていない</li>
+    <li>× 毎月の自由なお金5万円のほとんどが飲み代に消えている(ここが一番の伸びしろ)</li>
+  </ul>
+  <p>特に気になっているのが、NISAの非課税枠をまだ使い切れていないこと。600万円という評価額は悪くない数字に見えますが、新NISAの生涯投資枠(1,800万円)から見るとまだ3分の1程度。ここをどう埋めていくかが、今後の資産形成のスピードを左右しそうです。</p>
+
+  <h2>これからやること</h2>
+  <p>今日から、この数字を定点観測していきます。次回以降、以下を記録していく予定です。</p>
+  <ol>
+    <li>NISA枠をどう埋めていくか(積立額・配分の見直し)</li>
+    <li>個別株600万円の棚卸し(なんとなく買った株、本当に持ち続けるべきか)</li>
+    <li>投資用マンション2軒の本当の収支(家賃・ローン・修繕費まで洗い出す)</li>
+    <li>毎月の飲み代5万円、どこまで投資に回せるか(禁酒はしません)</li>
+  </ol>
+  <p>正直、家族には見せられない生々しい数字ですが、ブログという公開の場に出すことで自分にプレッシャーをかけていこうと思います。</p>
+
+  <hr class="divider">
+
+  <div class="cta-box">
+    <p>ちなみに、私自身がNISA口座で使っているのは楽天証券です。ポイント還元や取扱商品の豊富さ、アプリの使いやすさで選びました。まだNISA口座を持っていない方は、この機会に検討してみてください。</p>
+    <a class="cta" href="#" rel="nofollow sponsored">楽天証券でNISA口座を開設する →</a>
+    <p class="disclaimer">本記事のリンクはアフィリエイトリンクを含みます。投資は元本割れのリスクがあります。最終的な投資判断はご自身の責任でお願いします。</p>
+  </div>
+</div>
+
+<div class="next-link"><a href="article2.html">次の記事:NISA月10万円、S&P500とオルカンに5万ずつ積み立てることにした話 →</a></div>
+
+<footer>酒呑み父さんの資産台帳 &copy; 2026</footer>
+
+</body>
+</html>
